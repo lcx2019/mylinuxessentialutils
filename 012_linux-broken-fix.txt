@@ -1,0 +1,74 @@
+#! /bin/bash
+
+####################################################
+#         Linux update avang e maw a, broken  ta siamna. rescue Disk hmangin,   #
+#                                                   #
+#                          -chhanhima 30-12-2024    #
+#  Tool : chroot or sudo chroot
+#####################################################
+
+# Live CD atrang
+
+#broken drive kha /mnt ah mount tur
+#Drive zawn na
+
+echo "Kernel install thrat dan."
+echo " List drive..."
+echo "lsblk or fdisk -l "
+echo "mount | grep ^/dev"
+echo "sudo mount /dev/<Drive Siam tur> /mnt/"
+echo "sudo chroot"
+echo " sudo pacman -S linux"
+echo "exit"
+echo "umount /mnt"
+
+echo "*****LIVE CD************"
+echo " chroot hmanga DE install thrat dan"
+echo "mkdir /rescue"
+echo " List drive..."
+echo "lsblk or fdisk -l "
+echo "mount | grep ^/dev"
+echo "sudo mount /dev/<Drive Siam tur> /rescue"
+echo "/boot partition a hran a a awm chuan load tel tur"
+echo "mount /dev/sdXN /rescue/boot"
+echo "mount -t proc proc /rescue/proc"
+echo "mount -t sysfs sys /rescue/sys"
+echo "mount -o bind /dev /rescue/dev"
+echo "mount -t devpts pts /rescue/dev/pts"
+echo "chroot /rescue"
+echo "yay -Syu --devel"
+echo "sudo pacman -S hyprland"
+echo "A siam ngai ho siam zawh vek huna.."
+echo "exit"
+echo " A then fai na"
+echo "umount /rescue/dev/pts
+umount /rescue/dev
+umount /rescue/sys
+umount /rescue/proc"
+
+echo "umount /rescue"
+echo "reboot"
+
+echo "
+https://wiki.hyprland.org/Getting-Started/Installation/
+
+hyprland
+
+Install from the AUR, which compiles the latest source:
+
+yay -S hyprland-git
+
+or a tagged release from the arch packages:
+
+sudo pacman -S hyprland
+
+Alternatively, install the hyprland-meta package to automatically fetch and compile the latest git versions of all components within the hypr* ecosystem.
+
+yay -S hyprland-meta-git
+
+If you decide to use the git version from the AUR, you can use the Chaotic Aur to get pre-built binaries.
+
+In case of errors you can downgrade easily with downgrade."
+
+
+
