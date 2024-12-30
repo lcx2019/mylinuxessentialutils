@@ -1,0 +1,180 @@
+
+# Ka linux thil pawimawh ho install hmasak tur
+
+############################
+#Auto Login                                            #
+#                                                               #
+#sudo nano /etc/<DisplayManager>#
+###########################
+sudo nano /etc/sddm.conf.d/sddm.conf
+
+########################
+# essential pakage install              #
+########################
+pacman -Q git nano kwrite htop wget curl sudo neofetch yay paru pamac  ffmpeg python3 python-pip timeshift rsync nmap
+sudo pacman -S git nano kate htop wget curl sudo ssh neofetch python3 timeshift rsync nmap
+
+########################
+# Pakage Manager GUI               #
+########################
+sudo pacman -S pamac
+or
+yay pamac
+
+########################
+# Music  or Video                          #
+########################
+sudo pacman -S vlc
+
+##########################
+#    youtube downloader                   #
+#    youtube-dl update zawk             #
+#       yt-dlp                                           #
+# https://github.com/yt-dlp/yt-dlp  #
+#                                                             #
+# To install nightly with pip:              #
+#python3 -m pip install -U --pre "yt-dlp[default]" #
+#
+######################################
+#git clone https://github.com/yt-dlp/yt-dlp.git         #
+#python3 -m pip install -U --pre "yt-dlp[default]"    #
+#####################################
+sudo pacman -S yt-dlp
+
+
+
+########################
+# Double Commander               #
+########################
+
+
+########################
+# Check partition size                #
+########################
+df
+
+
+########################
+# Backup/Recover Files-Setting   #
+#                                                        #
+#timeshift for snapshots              #
+#backintime for backups             #
+########################
+sudo pacman -S timeshift
+
+########################
+# Disk Utility                                  #
+#Install from Pamac    or add/remove program in apps    #
+########################
+gnome-disk-utility
+
+########################
+#          bat           #
+# cat  ang chi mahse format color nen #
+########################
+yay bat
+
+
+############ Gparted #############
+
+gparted cannot open display
+Hi there,
+
+When I try to open gparted, I get the following terminal output:
+
+(gpartedbin:23300): Gtk-WARNING **: 14:35:14.107: cannot open display: :1
+What am I missing that gparted cannot run?
+
+Thank you very much in advance!
+
+
+Upvote
+
+The wiki explains what’s going on (in a way) https://wiki.archlinux.org/title/Xhost
+
+Op’s specific fix is currently unknown but it looks like installing the xorg-xhost package then running xhost + should resolve the issue.
+
+Edit: leaving this here for others who might have the same issue.
+
+
+•
+Yes, I installed (sudo pacman -S xorg-xhost) it, and now gparted starts as expected by just typing gparted into the terminal.
+
+
+Ans:sudo pacman -S xorg-xhost)
+
+##################################
+
+#### ML4W#####
+
+git clone https://github.com/mylinuxforwork/aur.git
+git clone https://github.com/mylinuxforwork/hyprland-starter.git
+or
+yay -S ml4w-hyprland
+ml4w-hyprland-setup
+
+ML4W Hyprland Settings 1.2
+bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/hyprland-settings/main/setup.sh)
+
+or
+
+# git is required
+sudo pacman -S git
+
+# Change into your Downloads directory
+cd ~/Downloads
+
+# Clone the packages
+git clone --depth 1 https://github.com/mylinuxforwork/hyprland-settings.git
+
+# Change into the folder
+cd hyprland-settings
+
+# Start the script
+./install.sh
+
+bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/setup-arch.sh)
+or
+yay -S ml4w-hyprland
+ml4w-hyprland-setup
+
+or rolling
+
+yay -S ml4w-hyprland-git
+ml4w-hyprland-setup
+
+git clone https://github.com/mylinuxforwork/dotfiles-settings.git
+git clone https://github.com/mylinuxforwork/dotfiles-welcome.git
+git clone https://github.com/mylinuxforwork/dotfiles-uninstaller.git
+
+For Qtile
+https://github.com/mylinuxforwork/qtile.git
+
+chatgpt
+https://github.com/mylinuxforwork/chatgpt-cli.git
+
+Getting started
+To make it easy for you to get started, here's a list of recommended next steps.
+
+# Install the required python packages
+./1-install.sh
+
+# Copy the openai.yaml to your home directory and add your openai api key to the file.
+vim openai.yaml
+
+# Define the path to openai.yaml
+vim mychatgpt.py
+
+# Start the script
+python mychatgpt.py
+
+# Tipp: Create an alias in your .bashrc
+alias chat="python mychatgpt.py"
+
+# Start the script just by typing
+chat
+
+# Example input
+Hello, how can I help you? Write 1 paragraph about Berlin.
+
+End of ML4W ####
