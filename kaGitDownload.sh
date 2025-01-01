@@ -9,7 +9,9 @@ echo "
 \n"
 
 git clone https://github.com/lcx2019/mylinuxessentialutils.git
+
+echo"\n
 cd mylinuxessentialutils/scripts
-pwd
-ls -l
-sudo chmod +x *.sh
+\npwd
+\nls -l
+\nsudo chmod +x *.sh"
