@@ -18,5 +18,6 @@ cd mylinuxessentialutils/scripts
 pwd 
 ls -l 
 sudo chmod +x *.sh
+cd mylinuxessentialutils/scripts 
 
 
