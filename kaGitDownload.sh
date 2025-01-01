@@ -11,7 +11,7 @@ echo "
 git clone https://github.com/lcx2019/mylinuxessentialutils.git
 
 echo"\n
-cd mylinuxessentialutils/scripts
-\npwd
-\nls -l
-\nsudo chmod +x *.sh"
+cd mylinuxessentialutils/scripts \n
+pwd \n 
+ls -l \n 
+sudo chmod +x *.sh \n "
