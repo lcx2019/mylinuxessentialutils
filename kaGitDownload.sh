@@ -14,10 +14,10 @@ sudo chmod +x *.sh \n "
 
 git clone https://github.com/lcx2019/mylinuxessentialutils.git
 
-cd mylinuxessentialutils/scripts 
+cd /mylinuxessentialutils/scripts 
 pwd 
 ls -l 
 sudo chmod +x *.sh
-cd mylinuxessentialutils/scripts 
+
 
 
