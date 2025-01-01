@@ -1,12 +1,13 @@
 #!/bin/bash
 
+echo "
 ##############################################
-#					     #
-#	Genome Disk Utility  		     #
-#					     #
-#					     #
+#					                                   #
+#	Genome Disk Utility  		                   #
+#			                              		     #
+#					                                   #
 ##############################################
-
-sudo pacman -S gnome-disk-utility
+"
+sudo pacman -S --noconfirm gnome-disk-utility
 
 
