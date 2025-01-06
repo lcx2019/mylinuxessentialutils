@@ -1,4 +1,3 @@
-
 # Ka linux thil pawimawh ho install hmasak tur
 
 ############################
@@ -8,11 +7,24 @@
 ###########################
 sudo nano /etc/sddm.conf.d/sddm.conf
 
+
+#-----------------------------------------------------------------------------------
+#Ramdisk  /etc/fstab
+
+myramdisk 	  /home/chhana/Ramdisk  tmpfs  defaults,size=30G,x-gvfs-show  0  0
+package_archive   /var/cache/pacman   tmpfs   defaults,size=10G   0   0
+systemd_journal   /var/log/journal       tmpfs      defaults,size=6G    0    0
+
+#-----------------------------------------------------------------------------------
+
 ########################
 # essential pakage install              #
 ########################
 pacman -Q git nano kwrite htop wget curl sudo neofetch yay paru pamac  ffmpeg python3 python-pip timeshift rsync nmap
-sudo pacman -S git nano kate htop wget curl sudo ssh neofetch python3 timeshift rsync nmap
+sudo pacman -S git nano kate htop sudo neofetch python3 timeshift rsync nmap ntfs-3g gnome-disk-utility gparted xorg-xhost putty ghostty
+
+yay -Syu --devel
+
 
 ########################
 # Pakage Manager GUI               #
