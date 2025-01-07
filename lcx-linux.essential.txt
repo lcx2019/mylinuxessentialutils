@@ -117,6 +117,15 @@ Ans:sudo pacman -S xorg-xhost)
 
 ##################################
 
+#-----------------------------------
+#             bin cue to iso
+#    tools : bchunk
+#    sudo pacman -S bchunk
+#  bchunk IMAGE.bin IMAGE.cue ANYNAME.iso
+#
+#-----------------------------------
+
+
 #### ML4W#####
 
 git clone https://github.com/mylinuxforwork/aur.git
