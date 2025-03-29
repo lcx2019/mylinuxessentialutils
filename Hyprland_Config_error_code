@@ -1,0 +1,25 @@
+
+# Config Error Code #
+~chhanhima 29/03/2025
+
+In your Hyprland config, you can enable suppress_errors:
+
+https://wiki.hyprland.org/Configuring/Variables/#debug
+
+
+cd ~/.config/hypr/
+sudo nano hyprland.conf
+
+a hnuai a code hi belh tur.
+
+#######################################
+
+debug {
+    suppress_errors = true
+}
+
+########################################
+
+
+But you shouldn't really do that, better to fix the config errors instead ;)
+
