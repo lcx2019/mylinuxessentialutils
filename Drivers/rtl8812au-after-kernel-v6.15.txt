@@ -1,0 +1,166 @@
+archlinux how to set rtw88_8812au driver load at kernel in boot
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+To set the rtw88_8812au driver to load automatically at kernel boot on Arch Linux, 
+you need to ensure the driver is properly installed and configured to load during the boot process. 
+Below are the steps to achieve this, based on the provided context and general Arch Linux practices.
+
+Steps to Set rtw88_8812au Driver to Load at Kernel Boot
+Verify the Driver is Installed
+Ensure the rtw88_8812au driver is available in your kernel or installed via a DKMS package.
+If not already installed, you can install the rtw88-dkms-git package from the AUR, which includes support for the rtw88_8812au driver:
+bash
+--------------------------------------------------------------------------------------------------------------------------------------
+Copy
+yay -S rtw88-dkms-git
+Make sure you have the necessary dependencies: dkms, linux-headers (matching your kernel version), and base-devel. Install them with:
+bash
+------------------------------------------------
+Copy
+sudo pacman -S dkms linux-headers base-devel
+If your Wi-Fi adapter is in CD-ROM mode, switch it to Wi-Fi mode using:
+bash
+---------------------------------------------------
+Copy
+sudo usb_modeswitch -KW -v <vendor_id> -p <product_id>
+Replace <vendor_id> and <product_id> with your device's IDs (e.g., 2357:0101 for some RTL8812AU devices). Check with lsusb to identify your device.bbs.archlinux.org
+Check for Firmware Issues
+If you see errors in dmesg like [24672.978460] rtw_8814au 5-2:1.2: Direct firmware load for rtw88/rtw8814a_fw.bin failed with error -2, update the firmware:
+bash
+------------------------------------------------------------------------
+Copy
+sudo pacman -S linux-firmware
+Ensure linux-firmware is version 20250408.c1a774f3-1 or later. If not available in your distribution, manually install the firmware as per the AUR instructions.aur.archlinux.org
+Blacklist Conflicting Drivers
+To avoid conflicts with other drivers (e.g., rtl8812au or rtl88xxau), blacklist them by creating or editing a file in /etc/modprobe.d/:
+bash
+-----------------------------------------------------------
+Copy
+sudo nano /etc/modprobe.d/blacklist.conf
+Add lines like:
+plaintext
+
+Copy
+blacklist rtl8812au
+blacklist rtw88_8822bu
+blacklist rtl88xxau
+Save and exit. This ensures only the rtw88_8812au driver is used.aur.archlinux.orgaur.archlinux.org
+-------------------------------------------------------
+Manually Load the Driver (Optional for Testing)
+
+Test if the driver works by loading it manually:
+bash
+
+Copy
+sudo modprobe rtw88_8812au
+Check if the driver is loaded and the Wi-Fi interface is created:
+bash
+----------------------------------------------------------
+Copy
+sudo lsmod | grep rtw88
+ip link
+If the interface (e.g., wlan0) appears and works, proceed to automate loading. If not, check dmesg for errors:
+bash
+
+Copy
+sudo dmesg | grep -i rtw
+Configure Automatic Loading at Boot
+To load the rtw88_8812au driver at boot, create a configuration file in /etc/modules-load.d/:
+bash
+----------------------------------------------------------------------------------------------
+Copy
+sudo nano /etc/modules-load.d/wifi.conf
+Add the following line:
+plaintext
+
+Copy
+rtw88_8812au
+Save and exit. This tells the system to load the rtw88_8812au module during boot.bbs.archlinux.org
+Handle Specific USB Device IDs (if Necessary)
+
+If the driver does not automatically detect your device (e.g., USB ID 2357:0101), you can create a udev rule to load it:
+Copy
+sudo nano /etc/udev/rules.d/80-realtek.rules
+Add:
+plaintext
+
+Copy
+ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="2357", ENV{ID_MODEL_ID}=="0101", RUN+="/usr/bin/modprobe rtw88_8812au", RUN+="/bin/sh -c 'echo 2357 0101 > /sys/bus/usb/drivers/rtw88_8812au/new_id'"
+Save and reload udev rules:
+bash
+
+Copy
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+Note: This step may not be needed for kernel 6.14-rc1 or later, as vendor IDs have been added.bbs.archlinux.org
+Update Initramfs (if Needed)
+If the driver is not loading correctly, ensure it’s included in the initial ramdisk. Edit /etc/mkinitcpio.conf:
+bash
+
+Copy
+sudo nano /etc/mkinitcpio.conf
+Add rtw88_8812au to the MODULES array:
+plaintext
+
+Copy
+MODULES=(rtw88_8812au)
+Regenerate the initramfs:
+bash
+
+Copy
+sudo mkinitcpio -P
+Reboot and Verify
+Reboot your system:
+bash
+
+Copy
+sudo reboot
+After reboot, check if the driver is loaded and the Wi-Fi interface is up:
+bash
+
+Copy
+lsmod | grep rtw88
+ip link
+If the interface (e.g., wlan0) is listed, bring it up:
+bash
+
+Copy
+sudo ip link set wlan0 up
+Check for connectivity issues or RF-kill errors:
+bash
+
+Copy
+rfkill list
+If blocked, unblock with:
+bash
+
+Copy
+rfkill unblock all
+Troubleshooting
+If the driver fails to load or the interface doesn’t appear, check dmesg for errors:
+bash
+
+Copy
+dmesg | grep -i rtw
+Ensure the wireless regulatory domain is set:
+bash
+
+Copy
+sudo iw reg set <your_country_code>
+Replace <your_country_code> with your ISO country code (e.g., US).wiki.archlinux.org
+
+If you’re using kernel 6.13 or later, note that rtw88_8812au support was added, but it may require manual intervention if the device isn’t detected.bbs.archlinux.org
+If issues persist, consider using the rtl8812au-dkms-git AUR package as a fallback, but this may not work with kernel 6.13+.bbs.archlinux.org
+
+Secure Boot Consideration
+If Secure Boot is enabled, ensure the DKMS module is signed. After installing rtw88-dkms-git, enroll the Machine Owner Key (MOK) as prompted during installation. 
+Follow the instructions in the rtw88-dkms-git AUR package or the GitHub repository.github.com
+
+Notes
+The rtw88_8812au driver is part of the rtw88 driver set included in recent Linux kernels (e.g., 6.13+). If you’re using an older kernel, 
+the rtw88-dkms-git package from AUR may be necessary.github.combbs.archlinux.org
+Always check for conflicting drivers and blacklist them to avoid issues.aur.archlinux.org
+If your device still doesn’t work, verify the USB ID with lsusb and ensure it matches a supported chipset (e.g., 2357:0101). 
+Report issues to the rtw88 GitHub repository if needed.github.com
+By following these steps, the rtw88_8812au driver should load automatically at boot, enabling your Wi-Fi adapter. 
+If you encounter specific errors, let me know, and I can help troubleshoot further!
